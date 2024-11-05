@@ -5,9 +5,11 @@ import Button from '../components/ui/button';
 import { useWallet } from '@txnlab/use-wallet'
 import { Plus, Users, Wallet, AlertCircle } from 'lucide-react';
 import ConnectWallet from '../components/web3/ConnectWallet';
+import ModalForm from '../components/ui/modal/Create';
 
 const Dashboard = () => {
   const [connect, connectSet] = React.useState<boolean>(false)
+  const [create, createSet] = React.useState<boolean>(false)
   const { activeAddress } = useWallet()
   const [activeGroups] = useState([
     {
@@ -47,7 +49,7 @@ const Dashboard = () => {
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Adashe Pay Dashboard</h1>
         <div className='flex'>
-          {activeAddress ? <Button text='Create New Group' className="flex items-center gap-2" /> : <Button text='Connect Wallet' className="flex items-center gap-2" onClick={() => connectSet(!connect)} />}
+          {activeAddress ? <Button text='Create New Group' className="flex items-center gap-2" onClick={() => createSet(true)} /> : <Button text='Connect Wallet' className="flex items-center gap-2" onClick={() => connectSet(!connect)} />}
         </div>
       </div>
 
@@ -144,6 +146,7 @@ const Dashboard = () => {
       </Card>
 
       <ConnectWallet openModal={connect} closeModal={() => connectSet(!connect)} />
+      <ModalForm isOpen={create} onClose={() => createSet(!create)} />
     </div >
   );
 };
