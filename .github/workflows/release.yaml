@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+      - '.vscode/**'
+      - '.idea/**'
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  adashe-contracts-validate:
+    name: Run adashe-contracts release
+    secrets: inherit
+    uses: ./.github/workflows/adashe-contracts-ci.yaml
+
+  adashe-contracts-release:
+    name: Run adashe-contracts release
+    secrets: inherit
+    uses: ./.github/workflows/adashe-contracts-cd.yaml
+    needs: adashe-contracts-validate
+
+  adashe-frontend-validate:
+    name: Run adashe-frontend release
+    secrets: inherit
+    uses: ./.github/workflows/adashe-frontend-ci.yaml
+
+  adashe-frontend-release:
+    name: Run adashe-frontend release
+    secrets: inherit
+    uses: ./.github/workflows/adashe-frontend-cd.yaml
+    needs: adashe-frontend-validate
