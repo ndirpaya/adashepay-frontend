@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 // import { Tabs, TabsList, TabsTrigger, TabsContent } from '../components/ui/tabs';
 import Button from '../components/ui/button';
+import { useWallet } from '@txnlab/use-wallet'
 import { Plus, Users, Wallet, AlertCircle } from 'lucide-react';
 import ConnectWallet from '../components/web3/ConnectWallet';
 
 const Dashboard = () => {
   const [connect, connectSet] = React.useState<boolean>(false)
+  const { activeAddress } = useWallet()
   const [activeGroups] = useState([
     {
       id: 1,
@@ -44,9 +46,8 @@ const Dashboard = () => {
       {/* Header Section */}
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Adashe Pay Dashboard</h1>
-        <div>
-          <Button text='Create New Group' className="flex items-center gap-2" />
-          <Button text='Connect Wallet' className="flex items-center gap-2" onClick={() => connectSet(!connect)} />
+        <div className='flex'>
+          {activeAddress ? <Button text='Create New Group' className="flex items-center gap-2" /> : <Button text='Connect Wallet' className="flex items-center gap-2" onClick={() => connectSet(!connect)} />}
         </div>
       </div>
 
