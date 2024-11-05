@@ -8,8 +8,8 @@ import Dashboard from '../pages/Dashboard';
 function EntryPoint() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard" element={<Home />} />
+      <Route path="/" element={<Dashboard />} />
     </Routes>
   );
 }
